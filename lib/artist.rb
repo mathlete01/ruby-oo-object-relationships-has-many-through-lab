@@ -17,34 +17,22 @@ class Artist
   end
 
   def new_song(name, genre) #The Artist class needs an INSTANCE METHOD, #new_song, that takes in an argument of a name and genre creates a new song. 
-    Song.new(name, self, genre)
-    #self.new_song.genre = genre
-    #self.new_song.artist = self #That song should know that it belongs to the artist.
+    Song.new(name, self, genre) #That song should know that it belongs to the artist.
   end
 
 
   def songs #The Artist class needs an INSTANCE METHOD, #songs, that iterates through all songs and finds the songs that belong to that artist. Try using select to achieve this.
-    output = [] 
-    Song.all.each do |n|
-      if n.artist == self
-        output << n
-      end
+    Song.all.select do |song|
+      song.artist == self
     end
-    output
   end
-
 
   def genres #The Artist class needs an INSTANCE METHOD, #genres that iterates over that artist's songs and collects the genre of each song.
-  output  = []
-    Song.all.each do |n|
+    Song.all.collect do |song|
+      song.genre if song.artist == self
       #binding.pry
-      if n.artist == self
-        output << n.genre
-      end
     end
-    output
   end
-
   
   def self.all #The Artist class needs a class method .all that lists each artist in the class variable
     @@all
